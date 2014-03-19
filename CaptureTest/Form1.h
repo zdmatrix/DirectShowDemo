@@ -1,5 +1,7 @@
 #pragma once
 
+#include "DSComment.h"
+
 
 namespace CaptureTest {
 
@@ -22,8 +24,14 @@ namespace CaptureTest {
 	public ref class Form1 : public System::Windows::Forms::Form
 	{
 	public:
+
+		DSComment^ DS;
+
 		Form1(void)
 		{
+			
+			DS = gcnew DSComment();
+
 			InitializeComponent();
 			//
 			//TODO: 在此处添加构造函数代码
@@ -70,6 +78,7 @@ namespace CaptureTest {
 			// 
 			// pictureBox1
 			// 
+			this->pictureBox1->BorderStyle = System::Windows::Forms::BorderStyle::Fixed3D;
 			this->pictureBox1->Location = System::Drawing::Point(13, 13);
 			this->pictureBox1->Name = L"pictureBox1";
 			this->pictureBox1->Size = System::Drawing::Size(320, 240);
@@ -78,6 +87,7 @@ namespace CaptureTest {
 			// 
 			// pictureBox2
 			// 
+			this->pictureBox2->BorderStyle = System::Windows::Forms::BorderStyle::Fixed3D;
 			this->pictureBox2->Location = System::Drawing::Point(346, 12);
 			this->pictureBox2->Name = L"pictureBox2";
 			this->pictureBox2->Size = System::Drawing::Size(320, 240);
@@ -92,6 +102,7 @@ namespace CaptureTest {
 			this->btnPreview->TabIndex = 2;
 			this->btnPreview->Text = L"预览";
 			this->btnPreview->UseVisualStyleBackColor = true;
+			this->btnPreview->Click += gcnew System::EventHandler(this, &Form1::btnPreview_Click);
 			// 
 			// btnCapture
 			// 
@@ -119,6 +130,10 @@ namespace CaptureTest {
 
 		}
 #pragma endregion
-	};
+	private: System::Void btnPreview_Click(System::Object^  sender, System::EventArgs^  e) {
+				 DS->PreviewVideo();
+				 DS->pMC->Run();
+			 }
+};
 }
 
